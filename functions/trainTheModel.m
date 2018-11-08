@@ -71,5 +71,3 @@ trained_layer2_weights(:,2:end)= temp_layer2_weights(:,2:end) + ((2*const)*layer
 
 trained_weights = [trained_layer1_weights(:) ; trained_layer2_weights(:)];
 end
-
-
