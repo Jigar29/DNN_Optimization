@@ -49,12 +49,10 @@ err1_r = sum(sum(layer1_weights(:,2:end).*layer1_weights(:,2:end)));
 err2_r = sum(sum(layer2_weights(:,2:end).*layer2_weights(:,2:end)));
 
 error = err1_r + err2_r;
-cost = cost + ((lambda/(2*no_of_examples))*error);          %This line will take the previous J to output new J.
+cost = cost + ((lambda/(2*no_of_examples))*error);         
 
 %BackPropagation Algorithm 
 layer1_grad_derivative = getSigmoidGradient(layer1_input * layer1_weights');
-
-%size(g_derivative_z2)                                      %# 5000 X 25 - matrix
 
 hidden_layer_delta = (outer_layer_delta*layer2_weights(:,2:end)).*(layer1_grad_derivative);
 
