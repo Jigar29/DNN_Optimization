@@ -3,9 +3,9 @@
 %Description    : This function computes the weights of the neural network
 %                 with gradient descend learning algorithm 
 %Returns        : No returns 
-function validateTrainedNetworkWeights(regularization_const)
-    if ~exist('lambda', 'var') || isempty(regularization_const)
-        regularization_const = 0;
+function validateTrainedNetworkWeights(lambda, bit_width)
+    if ~exist('lambda', 'var') || isempty(lambda)
+        lambda = 0;
     end
 
     num_input_features = 3;
@@ -18,7 +18,7 @@ function validateTrainedNetworkWeights(regularization_const)
     layer2_weights = initializeDebugWeights(num_labels, num_hidden_layers);
     
     % Reusing debugInitializeWeights to generate X
-    data  = debugInitializeWeights(no_of_examples, num_input_features - 1);
+    data  = initializeDebugWeights(no_of_examples, num_input_features - 1);
     labels  = 1 + mod(1:no_of_examples, num_labels)';
 
     % Unroll parameters

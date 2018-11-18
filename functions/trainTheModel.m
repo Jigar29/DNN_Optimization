@@ -39,8 +39,11 @@ end
 outer_layer_delta = layer2_output - labels; 
 
 %Computing the cost in this step 
-error_term1 = log(layer2_output')*labels';
-error_term2 = log(1-layer2_output')*(1-labels');
+layer2_output = layer2_output(:);
+labels = labels(:);
+
+error_term1 = log(layer2_output')*labels;
+error_term2 = log(1-layer2_output')*(1-labels);
 
 cost = (-error_term1 - error_term2)/no_of_examples;
 
@@ -62,6 +65,8 @@ trained_layer2_weights = zeros(size(layer2_weights));
 
 temp_layer1_weights = ((layer1_input'*hidden_layer_delta)')/no_of_examples;                              % # 25 X 401 matrix
 temp_layer2_weights = ((layer2_input'*outer_layer_delta)')/no_of_examples;                              % # 10 X 26 matrix
+
+const = lambda/(2*no_of_examples);
 
 trained_layer1_weights(:,1) = temp_layer1_weights(:,1);
 trained_layer1_weights(:,2:end) = temp_layer1_weights(:,2:end) + ((2*const)*layer1_weights(:,2:end));
