@@ -27,7 +27,6 @@ no_of_examples = size(X, 1);
 displayImageArray(X, 4000:4100);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
 
 %% ================ Part 2: Loading Parameters ================
 % In this part of the exercise, we load some pre-initialized 
@@ -64,7 +63,6 @@ fprintf(['Cost at parameters (loaded from ex4weights): %f '...
          '\n(this value should be about 0.287629)\n'], cost);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
 
 %% =============== Part 4: Implement Regularization ===============
 %  Once your cost function implementation is correct, you should now
@@ -82,8 +80,6 @@ fprintf(['Cost at parameters (loaded from ex4weights): %f '...
          '\n(this value should be about 0.383770)\n'], cost);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
-
 
 %% ================ Part 5: Sigmoid Gradient  ================
 %  Before you start implementing the neural network, you will first
@@ -99,8 +95,6 @@ fprintf('%f ', gradients);
 fprintf('\n\n');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
-
 
 %% ================ Part 6: Initializing Pameters ================
 %  In this part of the exercise, you will be starting to implment a two
