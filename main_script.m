@@ -24,7 +24,7 @@ fprintf('Loading and Visualizing Data ...\n')
 
 no_of_examples = size(X, 1);
 figure; 
-displayImageArray(X, 4000:4100);
+%displayImageArray(X, 4000:4100);
 
 fprintf('Program paused. Press enter to continue.\n');
 
@@ -89,7 +89,7 @@ fprintf('Program paused. Press enter to continue.\n');
 
 fprintf('\nEvaluating sigmoid gradient...\n')
 
-gradients = getSigmoidGradient([-1 -0.5 0 0.5 1]);
+gradients = getSigmoidGradient([-1 -0.5 0 0.5 1], bit_width);
 fprintf('Sigmoid gradient evaluated at [-1 -0.5 0 0.5 1]:\n  ');
 fprintf('%f ', gradients);
 fprintf('\n\n');
@@ -196,7 +196,7 @@ fprintf('\nProgram paused. Press enter to continue.\n');
 %  neural network to predict the labels of the training set. This lets
 %  you compute the training set accuracy.
 
-pred = predictLabel(layer1_weights, layer2_weights, X);
+pred = predictLabel(layer1_weights, layer2_weights, X, bit_width);
 
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 
