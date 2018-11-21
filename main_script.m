@@ -23,7 +23,7 @@ bit_width = 32;             % Desired bit width of the weights
 fprintf('Loading and Visualizing Data ...\n')
 
 no_of_examples = size(X, 1);
-
+figure; 
 displayImageArray(X, 4000:4100);
 
 fprintf('Program paused. Press enter to continue.\n');
@@ -123,8 +123,6 @@ fprintf('\nChecking Backpropagation... \n');
 validateTrainedNetworkWeights(0, bit_width);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
-
 
 %% =============== Part 8: Implement Regularization ===============
 %  Once your backpropagation implementation is correct, you should now
@@ -145,7 +143,6 @@ fprintf(['\n\nCost at (fixed) debugging parameters (w/ lambda = %f): %f ' ...
          '\n(for lambda = 3, this value should be about 0.576051)\n\n'], lambda, debug_cost);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
 
 
 %% =================== Part 8: Training NN ===================
@@ -179,7 +176,6 @@ layer2_weights = reshape(weights((1 + (num_hidden_layers * (num_input_features +
                  num_labels, (num_hidden_layers + 1));
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
 
 
 %% ================= Part 9: Visualize Weights =================
@@ -189,12 +185,10 @@ pause;
 
 fprintf('\nVisualizing Neural Network... \n')
 
-figure;
-
+figure; 
 displayData(layer1_weights(:, 2:end));
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
 
 %% ================= Part 10: Implement Predict =================
 %  After training the neural network, we would like to use it to predict

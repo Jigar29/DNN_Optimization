@@ -7,7 +7,7 @@
 function output_weights = initializeDebugWeights(num_inputs, num_outputs)
 
 %Creating the array of zeros of the given size 
-output_weights = zeros(num_outputs, num_inputs+1);
+output_weights = zeros(num_inputs, num_outputs+1);
 
 %Creating the sinosodual values for the weights to debug the neural network
 temp_weights = sin(1:numel(output_weights)); 

@@ -111,14 +111,13 @@ while i < abs(length)                                      % while not finished
       z2 = max(min(z2, INT*z3),(1-INT)*z3);  % don't accept too close to limits
       z1 = z1 + z2;                                           % update the step
       X = X + z2*s;
-      X = fixed_point(X, total_num_bits, total_num_int_bits); 
       [f2 df2] = eval(argstr);
       M = M - 1; i = i + (length<0);                           % count epochs?!
       d2 = df2'*s;
       z3 = z3-z2;                    % z3 is now relative to the location of z2
     end
     if f2 > f1+z1*RHO*d1 || d2 > -SIG*d1
-      break;                                                % this is a failure
+      break;                                                 % this is a failure
     elseif d2 > SIG*d1
       success = 1; break;                                             % success
     elseif M == 0
@@ -144,8 +143,7 @@ while i < abs(length)                                      % while not finished
     end
     f3 = f2; d3 = d2; z3 = -z2;                  % set point 3 equal to point 2
     z1 = z1 + z2;
-    X = X + z2*s;                      % update current estimates
-    X = fixed_point(X, total_num_bits, total_num_int_bits);     
+    X = X + z2*s;                      % update current estimates   
     [f2 df2] = eval(argstr);
     M = M - 1; i = i + (length<0);                             % count epochs?!
     d2 = df2'*s;
@@ -165,7 +163,7 @@ while i < abs(length)                                      % while not finished
     d1 = d2;
     ls_failed = 0;                              % this line search did not fail
   else
-    X = fixed_point(X0, total_num_bits, total_num_int_bits); f1 = f0; df1 = df0;  % restore point from before failed line search
+     f1 = f0; df1 = df0;  % restore point from before failed line search
     if ls_failed || i > abs(length)          % line search failed twice in a row
       break;                             % or we ran out of time, so we give up
     end
