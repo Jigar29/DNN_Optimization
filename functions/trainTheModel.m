@@ -4,7 +4,7 @@
 %                 with gradient descend learning algorithm 
 %Returns        : to be fixed 
 
-function [cost, trained_weights] = trainTheModel(data, labels, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_scheme_number_fptr, bit_scheme_array_fptr)
+function [cost, trained_weights] = trainTheModel(data, labels, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_scheme_array_fptr, activation_array_fptr, activation_gradient_fptr)
 
 %Computing the weights 
 %First Layer weights 
@@ -22,11 +22,11 @@ cost = 0;
 
 %let us add bias column in the current data for training 
 layer1_input = [ones(no_of_examples,1), data];
-layer1_output = getSigmoidArray(layer1_input * layer1_weights', bit_scheme_number_fptr); 
+layer1_output = activation_array_fptr(layer1_input * layer1_weights'); 
 
 %let us continue to the hidden layer now 
 layer2_input = [ones(no_of_examples,1), layer1_output]; 
-layer2_output = getSigmoidArray(layer2_input * layer2_weights', bit_scheme_number_fptr);
+layer2_output = activation_array_fptr(layer2_input * layer2_weights');
 
 %creating the label array for prediction purpose 
 labels = [zeros(no_of_examples,num_labels-1), labels];        % This will add 9 columns of 0's
@@ -59,7 +59,7 @@ error = err1_r + err2_r;
 cost = cost + ((lambda/(2*no_of_examples))*error);         
 
 %BackPropagation Algorithm 
-layer1_grad_derivative = getSigmoidGradient((layer1_input * layer1_weights'), bit_scheme_number_fptr, bit_scheme_array_fptr);
+layer1_grad_derivative = activation_gradient_fptr((layer1_input * layer1_weights'));
 
 hidden_layer_delta = (outer_layer_delta*layer2_weights(:,2:end)).*(layer1_grad_derivative);
 
