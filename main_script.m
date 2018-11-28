@@ -17,7 +17,7 @@ addpath('functions', 'dataset');
 
 %loading the dataset 
 load('mnist_data20x20.mat');
-    
+
 %Important variables setups
 is_float = 0; 
 is_sigmoid = 0; 
