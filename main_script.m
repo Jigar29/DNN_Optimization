@@ -8,10 +8,11 @@ addpath('functions', 'dataset');
 %loading the dataset 
 load('mnist_data20x20.mat');
 
-%Imoortant variables setup 
+%Important variables setup 
 is_bitaccurate = 0; 
 total_bits = 12; 
 num_integer_bits = 4;
+activation_bits = 1;                     % 1 for sigmoid function
 
 % Setup the parameters you will use for this exercise
 num_input_features  = 400;              % 20x20 Input Images of Digits
