@@ -20,7 +20,7 @@ load('mnist_data20x20.mat');
 
 %Imoortant variables setups
 is_bitaccurate = 1; 
-is_sigmoid = 0; 
+is_sigmoid = 0;
 total_bits = 12; 
 num_integer_bits = 4;
 
