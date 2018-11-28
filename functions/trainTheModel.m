@@ -20,12 +20,12 @@ no_of_examples = size(data , 1);
 cost = 0; 
 
 %let us add bias column in the current data for training 
-layer1_input = [ones(no_of_examples,1), data]; 
+layer1_input = [ones(no_of_examples,1), data];
 layer1_output = getSigmoidArray(layer1_input * layer1_weights', bit_width); 
 
 %let us continue to the hidden layer now 
 layer2_input = [ones(no_of_examples,1), layer1_output]; 
-layer2_output = getSigmoidArray(layer2_input * layer2_weights', bit_width)
+layer2_output = getSigmoidArray(layer2_input * layer2_weights', bit_width);
 
 %creating the label array for prediction purpose 
 labels = [zeros(no_of_examples,num_labels-1), labels];        % This will add 9 columns of 0's

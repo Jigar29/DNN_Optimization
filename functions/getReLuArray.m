@@ -10,7 +10,7 @@ function ReLu_value_array = getReLuArray(input_array, bit_width)
     %initializing the output array with zeros 
     ReLu_value_array = zeros(row, col); 
 
-    %sigmoid computation for each element of the matrix(array) 
+    %ReLu computation for each element of the matrix(array) 
     for i=1:row
         for j =1:col
             ReLu_value_array(i, j) = getReLuValue(input_array(i,j), bit_width);
