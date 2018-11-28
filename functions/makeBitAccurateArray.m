@@ -1,8 +1,8 @@
 %Function       : makeBitAccurateArray
 %Arguments      : input_array- an array to be converted into the
 %                  Bitaccurate array
-%               : bit_size - this is the maximum number of bits the number
-%                 is expected to represented in
+%               : bit_size - this is the maximum number of bits the decimal part of the number
+%                 is expected accurate upto
 %Description    : This function takes the input of regular float array and
 %                 rounds it off to the nearest posible decimal array 
 %Returns        : The Function returns the bit accurate float array 
