@@ -6,7 +6,7 @@
 %                 predicted and also the inputs of weights for both layer 
 %                 and predicts the output according to the sigmoid function
 %Returns        : The Function returns the bit-accurate predicted output 
-function predicted_label = predictLabel( layer1_weights, layer2_weights, data, bit_width)
+function predicted_label = predictLabel( layer1_weights, layer2_weights, data, bit_scheme_number_fptr)
     
     %calculating the size of input number and the weights for layer 2
     size_of_input = size(data,1);
@@ -15,13 +15,11 @@ function predicted_label = predictLabel( layer1_weights, layer2_weights, data, b
     predicted_label = zeros(size_of_input, 1); 
     
     %predicting the output of layer 1
-    layer1_output = getSigmoidArray(([ones(size_of_input, 1) data] * layer1_weights'), bit_width);
+    layer1_output = getSigmoidArray(([ones(size_of_input, 1) data] * layer1_weights'), bit_scheme_number_fptr);
     
     %predicting the final output after layer 2
-    layer2_output = getSigmoidArray(([ones(size_of_input, 1) layer1_output] * layer2_weights'), bit_width);
+    layer2_output = getSigmoidArray(([ones(size_of_input, 1) layer1_output] * layer2_weights'), bit_scheme_number_fptr);
     
     %selecting the max value of the predicted values
     [dummy, predicted_label] = max(layer2_output, [], 2);
 end
-
-

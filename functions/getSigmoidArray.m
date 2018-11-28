@@ -2,7 +2,7 @@
 %Arguments      : input_array - Input array to be passed into sigmoid fun
 %Description    : This function returns the array of sigmoid values
 %Returns        : Array of Sigmoid Values
-function sigmoid_value_array = getSigmoidArray(input_array, bit_width)
+function sigmoid_value_array = getSigmoidArray(input_array, bit_scheme_number_fptr)
 
     %Calculating the size of the input array 
     [row, col] = size(input_array);
@@ -13,8 +13,7 @@ function sigmoid_value_array = getSigmoidArray(input_array, bit_width)
     %sigmoid computation for each element of the matrix(array) 
     for i=1:row
         for j =1:col
-            sigmoid_value_array(i, j) = getSigmoidValue(input_array(i,j), bit_width);
+            sigmoid_value_array(i, j) = getSigmoidValue(input_array(i,j), bit_scheme_number_fptr);
         end
     end
 end
-

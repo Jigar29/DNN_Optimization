@@ -27,10 +27,8 @@ function fixed_point_number = convertToFixedPointValue(input_number,bit_width, n
     
     %Checking for saturation 
     if(input_number > max_val_posible)
-        fprintf("The value is more than the allowed limit of the given size of the fixed point representation");
         fixed_point_number = max_val_posible; 
     elseif(input_number < min_val_possible)
-        fprintf("The value is lesser than the allowed limit of the given size of the fixed point representation");
         fixed_point_number = min_val_possible; 
     end
 end

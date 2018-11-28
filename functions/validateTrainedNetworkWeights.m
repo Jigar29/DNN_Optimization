@@ -3,7 +3,7 @@
 %Description    : This function computes the weights of the neural network
 %                 with gradient descend learning algorithm 
 %Returns        : No returns 
-function validateTrainedNetworkWeights(lambda, bit_width)
+function validateTrainedNetworkWeights(lambda, bit_scheme_number_fptr, bit_scheme_array_fptr)
     if ~exist('lambda', 'var') || isempty(lambda)
         lambda = 0;
     end
@@ -25,7 +25,7 @@ function validateTrainedNetworkWeights(lambda, bit_width)
     debug_weights = [layer1_weights(:);layer2_weights(:)];
 
     % Decorator to the cost function 
-    costFunc = @(p) trainTheModel(data, labels, p, num_input_features, num_hidden_layers, num_labels,lambda, bit_width);
+    costFunc = @(p) trainTheModel(data, labels, p, num_input_features, num_hidden_layers, num_labels,lambda, bit_scheme_number_fptr, bit_scheme_array_fptr);
 
     %Computing the original gradients and cost based on the debug weights 
     [cost, trained_weights] = costFunc(debug_weights);  

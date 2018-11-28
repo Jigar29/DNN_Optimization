@@ -8,19 +8,32 @@ addpath('functions', 'dataset');
 %loading the dataset 
 load('mnist_data20x20.mat');
 
-% Setup the parameters you will use for this exercise
-num_input_features  = 400;  % 20x20 Input Images of Digits
-num_hidden_layers = 25;     % 25 hidden units
-num_labels = 10;            % 10 labels, from 1 to 10   
-                            % (note that we have mapped "0" to label 10)
-bit_width = 12;             % Desired bit width of the weights
+%Imoortant variables setup 
+is_bitaccurate = 0; 
+total_bits = 12; 
+num_integer_bits = 4;
 
+% Setup the parameters you will use for this exercise
+num_input_features  = 400;              % 20x20 Input Images of Digits
+num_hidden_layers = 25;                 % 25 hidden units
+num_labels = 10;                        % 10 labels, from 1 to 10   
+                                        % (note that we have mapped "0" to label 10)
+decimal_part_bit_width = 32;            % Desired bit width of the weights
+
+if(is_bitaccurate)
+    bit_scheme_array_fptr = @(array) makeBitAccurateArray(array, decimal_part_bit_width);
+    bit_scheme_number_fptr = @(number) makeBitAccurateNumber(number, decimal_part_bit_width);
+else 
+    bit_scheme_array_fptr = @(array) convertToFixedPointArray(array, total_bits, num_integer_bits);
+    bit_scheme_number_fptr = @(number) convertToFixedPointValue(number, total_bits, num_integer_bits);
+end
+    
 % Load Training Data
 fprintf('Loading and Visualizing Data ...\n')
 
 no_of_examples = size(X, 1);
-figure; 
-displayImageArray(X, 4000:4100);
+%figure; 
+%displayImageArray(X, 4000:4100);
 
 fprintf('\nLoading Saved Neural Network Parameters ...\n')
 
@@ -35,7 +48,7 @@ fprintf('\nFeedforward Using Neural Network ...\n')
 % Weight regularization parameter (we set this to 0 here).
 lambda = 0;
 
-cost = trainTheModel(X, y, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_width);
+cost = trainTheModel(X, y, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_scheme_number_fptr, bit_scheme_array_fptr);
 
 fprintf(['Cost at parameters (loaded from ex4weights): %f '...
          '\n(this value should be about 0.287629)\n'], cost);
@@ -45,7 +58,7 @@ fprintf('\nChecking Cost Function (w/ Regularization) ... \n')
 % Weight regularization parameter (we set this to 1 here).
 lambda = 1;
 
-cost = trainTheModel(X, y, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_width);
+cost = trainTheModel(X, y, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_scheme_number_fptr, bit_scheme_array_fptr);
 
 fprintf(['Cost at parameters (loaded from ex4weights): %3.18f '...
          '\n(this value should be about 0.383770)\n'], cost);
@@ -54,7 +67,7 @@ fprintf('Program paused. Press enter to continue.\n');
 
 fprintf('\nEvaluating sigmoid gradient...\n')
 
-gradients = getSigmoidGradient([-1 -0.5 0 0.5 1], bit_width);
+gradients = getSigmoidGradient([-1 -0.5 0 0.5 1], bit_scheme_number_fptr, bit_scheme_array_fptr);
 fprintf('Sigmoid gradient evaluated at [-1 -0.5 0 0.5 1]:\n  ');
 fprintf('%f ', gradients);
 fprintf('\n\n');
@@ -70,7 +83,7 @@ intial_weights = [initial_layer1_weights(:) ; initial_layer2_weights(:)];
 fprintf('\nChecking Backpropagation... \n');
 
 %  Check gradients by running checkNNGradients
-validateTrainedNetworkWeights(0, bit_width);
+validateTrainedNetworkWeights(0, bit_scheme_number_fptr, bit_scheme_array_fptr);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 
@@ -78,10 +91,10 @@ fprintf('\nChecking Backpropagation (w/ Regularization) ... \n')
 
 %  Check gradients by running checkNNGradients
 lambda = 3;
-validateTrainedNetworkWeights(lambda, bit_width);
+validateTrainedNetworkWeights(lambda, bit_scheme_number_fptr, bit_scheme_array_fptr);
 
 % Also output the costFunction debugging values
-debug_cost = trainTheModel(X, y, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_width);
+debug_cost = trainTheModel(X, y, weights, num_input_features, num_hidden_layers, num_labels,lambda, bit_scheme_number_fptr, bit_scheme_array_fptr);
 
 
 fprintf(['\n\nCost at (fixed) debugging parameters (w/ lambda = %f): %3.18f ' ...
@@ -97,7 +110,7 @@ options = optimset('MaxIter', 50);
 lambda = 1;
 
 % Create "short hand" for the cost function to be minimized
-costFunction = @(p) trainTheModel(X, y, p, num_input_features, num_hidden_layers, num_labels,lambda, bit_width);
+costFunction = @(p) trainTheModel(X, y, p, num_input_features, num_hidden_layers, num_labels,lambda, bit_scheme_number_fptr, bit_scheme_array_fptr);
 
 % Now, costFunction is a function that takes in only one argument (the
 % neural network parameters)
@@ -117,6 +130,6 @@ displayData(layer1_weights(:, 2:end));
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 
-pred = predictLabel(layer1_weights, layer2_weights, X, bit_width);
+pred = predictLabel(layer1_weights, layer2_weights, X, bit_scheme_number_fptr);
 
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
