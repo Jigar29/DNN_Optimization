@@ -12,4 +12,3 @@ function bit_accurate_number = makeBitAccurateNumber(input_number, bit_size)
    %Shifting back the decimal point (bit_size-1) times to the right 
    bit_accurate_number = integer_number / 2^(bit_size);
 end
-
