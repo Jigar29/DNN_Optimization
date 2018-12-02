@@ -4,7 +4,7 @@
 %Copyright  : This project can be read, modified. But can not be used for
 %             the profit making purpose. This project can still be used by
 %             the non-profit purposes. For any kind of use of the project
-%             expept the non-profit the creaters should be notified before
+%             except the non-profit the creaters should be notified before
 %             using the project. 
 
 
@@ -18,21 +18,21 @@ addpath('functions', 'dataset');
 %loading the dataset 
 load('mnist_data20x20.mat');
 
-%Imoortant variables setups
-is_bitaccurate = 1; 
+%Important variables setups
+is_float = 0; 
 is_sigmoid = 0; 
-total_bits = 12; 
-num_integer_bits = 4;
+total_bits = 4; 
+num_integer_bits = 1;
 
 % Setup the parameters you will use for this exercise
 num_input_features  = 400;              % 20x20 Input Images of Digits
 num_hidden_layers = 25;                 % 25 hidden units
 num_labels = 10;                        % 10 labels, from 1 to 10   
                                         % (note that we have mapped "0" to label 10)
-decimal_part_bit_width = 4;             % Desired bit width of the weights
+decimal_part_bit_width = 10;             % Desired bit width of the weights
 
 %Choosing the Bit Scheme representation 
-if(is_bitaccurate)
+if(is_float)
     bit_scheme_array_fptr  = @(array)  makeBitAccurateArray(array, decimal_part_bit_width);
     bit_scheme_number_fptr = @(number) makeBitAccurateNumber(number, decimal_part_bit_width);
 else 
